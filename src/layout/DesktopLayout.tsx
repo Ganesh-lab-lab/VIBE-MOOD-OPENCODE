@@ -59,7 +59,7 @@ export default function DesktopLayout() {
             </div>
             <div className="flex-1 overflow-y-auto pr-1 space-y-1">
               <button onClick={() => navigate("/liked")} className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-surface/40">
-                <div className="w-11 h-11 rounded-lg" style={{ background: "linear-gradient(135deg,#FF5E6C,#7B2FF7)" }} />
+                <div className="w-11 h-11 rounded-lg" style={{ background: "linear-gradient(135deg,var(--secondary),var(--primary))" }} />
                 <div className="text-left">
                   <div className="text-sm font-semibold">Liked songs</div>
                   <div className="text-xs text-muted">Playlist</div>
@@ -100,7 +100,7 @@ function LeftPlaylists({ navigate }: any) {
     <>
       {playlists.map((pl: any) => (
         <button key={pl.id} onClick={() => navigate("/playlist/" + pl.id)} className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-surface/40">
-          <div className="w-11 h-11 rounded-lg" style={{ background: pl.color ? `linear-gradient(135deg, ${pl.color}, #3DE8D0)` : "linear-gradient(135deg,#7B2FF7,#3DE8D0)" }} />
+          <div className="w-11 h-11 rounded-lg" style={{ background: pl.color ? `linear-gradient(135deg, ${pl.color}, var(--highlight))` : "linear-gradient(135deg,var(--primary),var(--highlight))" }} />
           <div className="text-left min-w-0">
             <div className="text-sm font-semibold truncate">{pl.name}</div>
             <div className="text-xs text-muted">Playlist, {pl.songIds.length} songs</div>

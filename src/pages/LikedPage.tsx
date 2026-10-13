@@ -21,7 +21,7 @@ export default function LikedPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <div className="w-32 h-32 rounded-2xl" style={{ background: "linear-gradient(135deg,#FF5E6C,#7B2FF7)" }} />
+        <div className="w-32 h-32 rounded-2xl" style={{ background: "linear-gradient(135deg,var(--secondary),var(--primary))" }} />
         <div>
           <div className="text-xs text-muted">Playlist</div>
           <h1 className="font-display text-4xl font-extrabold">Liked songs</h1>

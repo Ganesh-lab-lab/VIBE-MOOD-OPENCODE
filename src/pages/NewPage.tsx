@@ -14,9 +14,9 @@ export default function NewPage() {
   const navigate = useNavigate();
   const newSongs = songs.filter((s) => s.isNew);
   const featured = [
-    { label: "NEW ALBUM", title: "Velvet Hours", artist: "Nova Lune", colors: ["#7B2FF7","#3DE8D0"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s1")!, songs) },
-    { label: "UPDATED PLAYLIST", title: "Road Trip Radio", artist: "Vibemood", colors: ["#FF7A1A","#7B2FF7"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s2")!, songs) },
-    { label: "NEW ALBUM", title: "Resonance", artist: "Pulse Theory", colors: ["#C6FF3D","#7B2FF7"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s8")!, songs) },
+    { label: "NEW ALBUM", title: "Velvet Hours", artist: "Nova Lune", colors: ["var(--primary)","var(--highlight)"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s1")!, songs) },
+    { label: "UPDATED PLAYLIST", title: "Road Trip Radio", artist: "Vibemood", colors: ["var(--accent-new)","var(--primary)"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s2")!, songs) },
+    { label: "NEW ALBUM", title: "Resonance", artist: "Pulse Theory", colors: ["var(--accent-new)","var(--primary)"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s8")!, songs) },
   ];
   return (
     <div className="space-y-8">

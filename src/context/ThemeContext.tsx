@@ -71,6 +71,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setMode = useCallback((m: Vibe) => {
     setModeState(m);
     localStorage.setItem("vibemood_mode", m);
+    if (m === "auto") setForcedHourState(null);
   }, []);
 
   const setForcedHour = useCallback((h: number | null) => setForcedHourState(h), []);

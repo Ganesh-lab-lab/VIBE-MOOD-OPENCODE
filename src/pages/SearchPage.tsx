@@ -86,7 +86,7 @@ export default function SearchPage() {
               <div className="space-y-1">
                 {filteredPlaylists.map((p) => (
                   <button key={p.id} onClick={() => navigate("/playlist/" + p.id)} className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface/40 w-full text-left">
-                    <div className="w-11 h-11 rounded-lg" style={{ background: "linear-gradient(135deg,#7B2FF7,#3DE8D0)" }} />
+                    <div className="w-11 h-11 rounded-lg" style={{ background: "linear-gradient(135deg,var(--primary),var(--highlight))" }} />
                     <span className="text-sm font-semibold">{p.name}</span>
                   </button>
                 ))}

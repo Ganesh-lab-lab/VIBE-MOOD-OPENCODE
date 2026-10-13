@@ -24,7 +24,7 @@ export default function PlaylistPage() {
   if (!pl) return <div className="text-muted">Playlist not found</div>;
 
   const playlistSongs = pl.songIds.map((sid) => songs.find((s) => s.id === sid)!).filter(Boolean);
-  const colors = playlistSongs.length ? playlistSongs[0].coverColors : ["#7B2FF7", "#3DE8D0"];
+  const colors = playlistSongs.length ? playlistSongs[0].coverColors : ["var(--primary)", "var(--highlight)"];
 
   const playAll = () => { if (playlistSongs.length) player.play(playlistSongs[0], playlistSongs); };
   const shuffle = () => { if (playlistSongs.length) { player.setShuffle(true); player.play(playlistSongs[Math.floor(Math.random()*playlistSongs.length)], playlistSongs); } };

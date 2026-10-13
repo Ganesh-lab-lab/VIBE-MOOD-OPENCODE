@@ -48,7 +48,7 @@ export default function LibraryPage() {
 
       <button onClick={() => navigate("/liked")} className="glass p-4 flex items-center gap-4 w-full">
         <div className="glass-inner flex items-center gap-4 w-full">
-          <div className="w-14 h-14 rounded-lg" style={{ background: "linear-gradient(135deg,#FF5E6C,#7B2FF7)" }} />
+          <div className="w-14 h-14 rounded-lg" style={{ background: "linear-gradient(135deg,var(--secondary),var(--primary))" }} />
           <div className="text-left">
             <div className="font-semibold">Liked songs</div>
             <div className="text-xs text-muted">{likes.liked.size} songs</div>
@@ -60,7 +60,7 @@ export default function LibraryPage() {
         {playlists.map((pl) => (
           <button key={pl.id} onClick={() => navigate("/playlist/" + pl.id)} className="glass p-3 text-left hover:scale-[1.02] transition-transform">
             <div className="glass-inner space-y-2">
-              <div className="w-full aspect-square rounded-2xl" style={{ background: pl.color ? `linear-gradient(135deg, ${pl.color}, #3DE8D0)` : "linear-gradient(135deg,#7B2FF7,#3DE8D0)" }} />
+              <div className="w-full aspect-square rounded-2xl" style={{ background: pl.color ? `linear-gradient(135deg, ${pl.color}, var(--highlight))` : "linear-gradient(135deg,var(--primary),var(--highlight))" }} />
               <div className="font-semibold text-sm truncate">{pl.name}</div>
               <div className="text-xs text-muted">Playlist, {pl.songIds.length} songs</div>
             </div>

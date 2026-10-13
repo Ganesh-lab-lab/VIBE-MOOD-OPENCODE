@@ -29,7 +29,7 @@ export function PlaylistsProvider({ children }: { children: React.ReactNode }) {
   }, [playlists]);
 
   const create = useCallback((name: string, icon?: string, color?: string) => {
-    const pl: Playlist = { id: "pl_" + Date.now() + "_" + Math.random().toString(36).slice(2), name, songIds: [], icon, color: color || "#7B2FF7", createdAt: Date.now() };
+    const pl: Playlist = { id: "pl_" + Date.now() + "_" + Math.random().toString(36).slice(2), name, songIds: [], icon, color: color || "var(--primary)", createdAt: Date.now() };
     setPlaylists((p) => [pl, ...p]);
     return pl;
   }, []);
