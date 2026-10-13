@@ -1,6 +1,6 @@
 export type RawSong = { id: string; title: string; artist: string; album?: string; durationSec?: number; coverUrl?: string; previewUrl?: string; releasedAt?: string; source: string; language?: string | null };
 
-export async function itunesSearch(q: string, limit = 20, country = "IN"): Promise<RawSong[]> {
+export async function itunesSearch(q: string, limit = 40, country = "IN"): Promise<RawSong[]> {
   const url = `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=song&country=${country}&limit=${limit}`;
   const r = await fetch(url);
   if (!r.ok) throw new Error("itunes " + r.status);
