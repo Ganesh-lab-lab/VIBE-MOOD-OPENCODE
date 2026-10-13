@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import DesktopLayout from "./DesktopLayout";
 import MobileLayout from "./MobileLayout";
 import SkyBackdrop from "../components/SkyBackdrop";
-import DebugPanel from "../components/DebugPanel";
 
 export default function AppLayout() {
   const { loggedIn } = useAuth();
@@ -31,7 +30,6 @@ export default function AppLayout() {
     <div className="min-h-screen relative">
       <SkyBackdrop />
       <Layout />
-      <DebugPanel />
     </div>
   );
 }

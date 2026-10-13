@@ -44,7 +44,7 @@ export default function ArtistPage() {
       </div>
 
       <div className="flex items-center gap-3">
-        <button onClick={() => { if (artistSongs.length) player.play(artistSongs[0], artistSongs); }} className="px-6 h-11 rounded-full bg-primary text-on-primary flex items-center gap-2 font-semibold"><Play size={16} strokeWidth={1.75} fill="currentColor" /> Play</button>
+        <button onClick={() => { if (artistSongs.length) player.play(artistSongs[0], artistSongs); }} className="px-6 h-11 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center gap-2 font-semibold"><Play size={16} strokeWidth={1.75} fill="currentColor" /> Play</button>
         <button onClick={() => { player.setShuffle(true); if (artistSongs.length) player.play(artistSongs[Math.floor(Math.random()*artistSongs.length)], artistSongs); }} className="px-6 h-11 rounded-full bg-surface/50 flex items-center gap-2"><Shuffle size={16} strokeWidth={1.75} /> Shuffle</button>
         <button onClick={() => setFollowing((f) => !f)} className="px-4 h-11 rounded-full glass flex items-center gap-2">
           {following ? <UserCheck size={16} strokeWidth={1.75} /> : <UserPlus size={16} strokeWidth={1.75} />}

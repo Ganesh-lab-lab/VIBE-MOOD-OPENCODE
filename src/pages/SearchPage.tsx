@@ -56,9 +56,9 @@ export default function SearchPage() {
   return (
     <div className="space-y-6">
       <div className="flex gap-2 overflow-x-auto">
-        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>All</button>
+        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-gradient-to-r from-primary to-primary-2 text-on-primary" : "bg-surface/50 text-muted")}>All</button>
         {orderedLangs.map((c) => { const l = LANGUAGES.find(x=>x.code===c)!; return (
-          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
+          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-gradient-to-r from-primary to-primary-2 text-on-primary" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
         );})}
       </div>
       <div className="relative">

@@ -27,7 +27,8 @@ const vibeFilter = (vibe: string | null) => (s: any) => {
 
 export default function Home() {
   const { user } = useAuth();
-  const { mode, effectiveHour } = useTheme();
+  const { mode } = useTheme();
+  const effectiveHour = new Date().getHours();
   const player = usePlayer();
   const navigate = useNavigate();
   const [chip, setChip] = useState("All");
@@ -58,7 +59,7 @@ export default function Home() {
     return () => { es?.close(); };
   }, [lang]);
 
-  const vibe = mode === "auto" ? null : mode;
+  const vibe = mode === "default" ? null : mode;
   const filteredSongs = useMemo(() => songs.filter(vibeFilter(vibe)), [vibe]);
 
   const continueSongs = filteredSongs.slice(0, 6);
@@ -77,15 +78,15 @@ export default function Home() {
       {toast && <div className="fixed top-4 right-4 z-50 glass px-4 py-2 text-sm text-primary">{toast}</div>}
 
       <div className="flex gap-2 overflow-x-auto">
-        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>All</button>
+        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-gradient-to-r from-primary to-primary-2 text-on-primary" : "bg-surface/50 text-muted")}>All</button>
         {orderedLangs.map((c) => { const l = LANGUAGES.find(x=>x.code===c)!; return (
-          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
+          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-gradient-to-r from-primary to-primary-2 text-on-primary" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
         );})}
       </div>
 
       <div className="flex gap-2">
         {["All","Music","New"].map((c) => (
-          <button key={c} onClick={() => setChip(c)} className={"px-4 py-1.5 rounded-full text-sm font-medium " + (chip === c ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{c}</button>
+          <button key={c} onClick={() => setChip(c)} className={"px-4 py-1.5 rounded-full text-sm font-medium " + (chip === c ? "bg-gradient-to-r from-primary to-primary-2 text-on-primary" : "bg-surface/50 text-muted")}>{c}</button>
         ))}
       </div>
 
@@ -96,7 +97,7 @@ export default function Home() {
             <div className="glass-inner flex items-center gap-3 w-full">
               <Cover song={s} size={48} />
               <span className="font-medium text-sm truncate flex-1">{s.title}</span>
-              <span className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100"><Play size={16} strokeWidth={1.75} fill="currentColor" /></span>
+              <span className="w-9 h-9 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100"><Play size={16} strokeWidth={1.75} fill="currentColor" /></span>
             </div>
           </button>
         ))}
@@ -176,7 +177,7 @@ function Card({ song, onPlay }: any) {
       <div className="glass-inner space-y-2">
         <div className="relative">
           <Cover song={song} size={104} />
-          <button onClick={onPlay} aria-label="Play" className="absolute bottom-1 right-1 w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><Play size={16} strokeWidth={1.75} fill="currentColor" /></button>
+          <button onClick={onPlay} aria-label="Play" className="absolute bottom-1 right-1 w-9 h-9 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><Play size={16} strokeWidth={1.75} fill="currentColor" /></button>
         </div>
         <div className="font-semibold text-sm truncate">{song.title}</div>
         <button className="text-xs text-muted truncate hover:underline" onClick={() => navigate("/artist/" + song.artistId)}>{artist?.name}</button>

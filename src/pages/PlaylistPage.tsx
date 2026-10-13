@@ -45,7 +45,7 @@ export default function PlaylistPage() {
           {editing ? (
             <div className="flex gap-2">
               <input value={name} onChange={(e) => setName(e.target.value)} className="flex-1 h-10 px-3 rounded-xl bg-surface/40 text-2xl font-display font-bold" />
-              <button onClick={() => { if (name.trim()) { rename(pl.id, name.trim()); } setEditing(false); }} className="px-4 rounded-xl bg-primary text-on-primary">Save</button>
+              <button onClick={() => { if (name.trim()) { rename(pl.id, name.trim()); } setEditing(false); }} className="px-4 rounded-xl bg-gradient-to-r from-primary to-primary-2 text-on-primary">Save</button>
               <button onClick={() => setEditing(false)} className="px-4 rounded-xl bg-surface/40">Cancel</button>
             </div>
           ) : (
@@ -53,7 +53,7 @@ export default function PlaylistPage() {
           )}
           <div className="text-muted text-sm mt-1">Playlist • {playlistSongs.length} songs</div>
           <div className="flex gap-2 mt-3">
-            <button onClick={playAll} className="px-4 h-9 rounded-full bg-primary text-on-primary flex items-center gap-2"><Play size={14} strokeWidth={1.75} fill="currentColor" /> Play</button>
+            <button onClick={playAll} className="px-4 h-9 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center gap-2"><Play size={14} strokeWidth={1.75} fill="currentColor" /> Play</button>
             <button onClick={shuffle} className="px-4 h-9 rounded-full bg-surface/50 flex items-center gap-2"><Shuffle size={14} strokeWidth={1.75} /> Shuffle</button>
             <button onClick={() => setAddOpen(true)} className="px-4 h-9 rounded-full bg-surface/50 flex items-center gap-2"><Plus size={14} strokeWidth={1.75} /> Add songs</button>
             <button onClick={() => setConfirmDelete(true)} className="px-4 h-9 rounded-full bg-surface/50 flex items-center gap-2 text-secondary"><Trash2 size={14} strokeWidth={1.75} /> Delete</button>
@@ -64,7 +64,7 @@ export default function PlaylistPage() {
       {playlistSongs.length === 0 ? (
         <div className="text-center text-muted py-12">
           <p>No songs yet</p>
-          <button onClick={() => setAddOpen(true)} className="mt-3 px-4 h-9 rounded-full bg-primary text-on-primary">Add songs</button>
+          <button onClick={() => setAddOpen(true)} className="mt-3 px-4 h-9 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary">Add songs</button>
         </div>
       ) : (
         <div className="space-y-1">

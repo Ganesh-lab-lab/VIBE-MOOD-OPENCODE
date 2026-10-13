@@ -64,7 +64,7 @@ export function Signup() {
               I agree to the terms
             </label>
             {error && <p className="text-sm text-secondary">{error}</p>}
-            <button type="submit" className="w-full h-11 rounded-xl bg-primary text-on-primary font-semibold">Create account</button>
+            <button type="submit" className="w-full h-11 rounded-xl bg-gradient-to-r from-primary to-primary-2 text-on-primary font-semibold">Create account</button>
           </form>
           <p className="text-center text-sm text-muted">
             Already have an account? <Link to="/login" className="text-primary font-semibold">Log in</Link>

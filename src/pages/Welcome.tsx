@@ -12,7 +12,7 @@ function greetingHour(h: number) {
 export function Welcome() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { effectiveHour } = useTheme();
+  const effectiveHour = new Date().getHours();
   const topLang = user?.languages?.[0] || "en";
   const greetLine = topLang === "te" ? "నమస్కారం" : topLang === "hi" ? "नमस्ते" : topLang === "ta" ? "வணக்கம்" : topLang === "ml" ? "നമസ്കാരം" : topLang === "kn" ? "ನಮಸ್ಕಾರ" : "";
   useEffect(() => {

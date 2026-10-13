@@ -42,7 +42,7 @@ export function Login() {
               </div>
             </div>
             {error && <p className="text-sm text-secondary">{error}</p>}
-            <button type="submit" disabled={loading} className="w-full h-11 rounded-xl bg-primary text-on-primary font-semibold disabled:opacity-60">
+            <button type="submit" disabled={loading} className="w-full h-11 rounded-xl bg-gradient-to-r from-primary to-primary-2 text-on-primary font-semibold disabled:opacity-60">
               {loading ? "Logging in..." : "Log in"}
             </button>
           </form>

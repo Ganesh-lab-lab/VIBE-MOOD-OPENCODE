@@ -36,7 +36,7 @@ export function PickVibe() {
           );
         })}
       </div>
-      <button disabled={picked.length === 0} onClick={save} className="px-8 h-11 rounded-full bg-primary text-on-primary font-semibold disabled:opacity-40">
+      <button disabled={picked.length === 0} onClick={save} className="px-8 h-11 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary font-semibold disabled:opacity-40">
         Continue
       </button>
     </div>

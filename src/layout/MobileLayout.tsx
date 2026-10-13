@@ -39,7 +39,7 @@ export default function MobileLayout() {
           </div>
           <div className="flex items-center gap-4">
             <button onClick={player.prev} className="w-11 h-11 rounded-full glass flex items-center justify-center">⏮</button>
-            <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
+            <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
             <button onClick={player.next} className="w-11 h-11 rounded-full glass flex items-center justify-center">⏭</button>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function MobileLayout() {
               <div className="text-sm font-semibold truncate">{s.title}</div>
               <div className="text-xs text-muted truncate">{findArtist(s.artistId)?.name}</div>
             </div>
-            <button onClick={(e) => { e.stopPropagation(); player.toggle(); }} aria-label="Play pause" className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
+            <button onClick={(e) => { e.stopPropagation(); player.toggle(); }} aria-label="Play pause" className="w-9 h-9 rounded-full bg-gradient-to-r from-primary to-primary-2 text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
             <button onClick={(e) => { e.stopPropagation(); likes.toggle(s.id); }} aria-label="Like" className="w-9 h-9 rounded-full bg-surface/40 flex items-center justify-center">
               <Heart size={16} strokeWidth={1.75} fill={likes.isLiked(s.id) ? "var(--secondary)" : "none"} color={likes.isLiked(s.id) ? "var(--secondary)" : "currentColor"} />
             </button>
@@ -71,20 +71,20 @@ export default function MobileLayout() {
         <div className="glass-inner flex items-center justify-around">
           <button aria-label="Home" onClick={() => navigate("/")} className={"flex flex-col items-center gap-0.5 p-2 " + (loc.pathname === "/" ? "text-primary" : "text-muted")}>
             <Home size={22} strokeWidth={1.75} />
-            {loc.pathname === "/" && <span className="w-1 h-1 rounded-full bg-primary" />}
+            {loc.pathname === "/" && <span className="w-1 h-1 rounded-full bg-gradient-to-r from-primary to-primary-2" />}
           </button>
           <button aria-label="New" onClick={() => navigate("/new")} className={"flex flex-col items-center gap-0.5 p-2 " + (loc.pathname === "/new" ? "text-primary" : "text-muted")}>
             <Zap size={22} strokeWidth={1.75} />
-            {loc.pathname === "/new" && <span className="w-1 h-1 rounded-full bg-primary" />}
+            {loc.pathname === "/new" && <span className="w-1 h-1 rounded-full bg-gradient-to-r from-primary to-primary-2" />}
           </button>
           <div className="-mt-6"><VibeRing size={58} /></div>
           <button aria-label="Search" onClick={() => navigate("/search")} className={"flex flex-col items-center gap-0.5 p-2 " + (loc.pathname === "/search" ? "text-primary" : "text-muted")}>
             <SearchIcon size={22} strokeWidth={1.75} />
-            {loc.pathname === "/search" && <span className="w-1 h-1 rounded-full bg-primary" />}
+            {loc.pathname === "/search" && <span className="w-1 h-1 rounded-full bg-gradient-to-r from-primary to-primary-2" />}
           </button>
           <button aria-label="Library" onClick={() => navigate("/library")} className={"flex flex-col items-center gap-0.5 p-2 " + (loc.pathname === "/library" ? "text-primary" : "text-muted")}>
             <LibIcon size={22} strokeWidth={1.75} />
-            {loc.pathname === "/library" && <span className="w-1 h-1 rounded-full bg-primary" />}
+            {loc.pathname === "/library" && <span className="w-1 h-1 rounded-full bg-gradient-to-r from-primary to-primary-2" />}
           </button>
         </div>
       </nav>
