@@ -30,14 +30,27 @@ export function songsHandler(req: Request, res: Response) {
   res.json({ songs: rows.map(mapSong) });
 }
 
-export function artistHandler(req: Request, res: Response) {
-  const id = req.params.id;
-  // derive artist name? use artists table
-  const art = db.prepare("SELECT * FROM artists WHERE id=?").get(id) as any;
-  const namePattern = art ? art.name : id;
-  // songs where artist matches
-  const rows = db.prepare("SELECT * FROM songs WHERE artist=? ORDER BY releasedAt DESC LIMIT 40").all(art?.name || "");
-  // fallback: search by id-derived? if none, return empty
+export async function artistHandler(req: Request, res: Response) {
+  const name = String(req.query.name || req.params.id || "").trim();
+  if (!name) return res.json({ artist: { name: "" }, songs: [], albums: [] });
+  // top songs from DB first
+  let rows = db.prepare("SELECT * FROM songs WHERE artist=? ORDER BY releasedAt DESC LIMIT 25").all(name) as any[];
+  if (!rows.length) {
+    // search iTunes/Deezer
+    try {
+      const { itunesSearchMulti, deezerSearch } = await import("../itunes.js");
+      const r = await itunesSearchMulti(name, 25);
+      const dz = await deezerSearch(name, 25).catch(() => []);
+      const all = [...r, ...dz];
+      for (const s of all) {
+        // upsert minimal by reusing search upsert? Just insert
+        db.prepare("INSERT OR IGNORE INTO songs(id,title,artist,album,durationSec,coverUrl,previewUrl,releasedAt,source,vibeTags,language) VALUES(?,?,?,?,?,?,?,?,?,?,?)").run(s.id,s.title,s.artist,s.album||null,s.durationSec||null,s.coverUrl||null,s.previewUrl||null,s.releasedAt||null,s.source||null,"[]",null);
+      }
+      rows = db.prepare("SELECT * FROM songs WHERE artist=? ORDER BY releasedAt DESC LIMIT 25").all(name) as any[];
+    } catch { rows = []; }
+  }
   const songs = rows.map(mapSong);
-  res.json({ artist: art || { id, name: id }, songs });
+  const albums = Array.from(new Set(songs.map((s:any)=>s.album))).filter(Boolean).map((a:any)=>({ name: a }));
+  const coverUrl = songs[0]?.coverUrl || null;
+  res.json({ artist: { id: name, name, imageUrl: coverUrl }, songs, albums, coverUrl });
 }

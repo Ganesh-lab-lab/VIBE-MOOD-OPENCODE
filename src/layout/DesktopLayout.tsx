@@ -33,7 +33,7 @@ export default function DesktopLayout() {
             <input
               placeholder="What do you want to play?"
               className="w-full h-10 pl-11 pr-4 rounded-full bg-surface/40 text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/40"
-              onKeyDown={(e) => { if (e.key === "Enter") navigate("/search"); }}
+              onKeyDown={(e) => { if (e.key === "Enter") navigate("/search?q=" + encodeURIComponent((e.target as HTMLInputElement).value)); }}
             />
           </div>
           <button aria-label="Notifications" className="w-10 h-10 rounded-full bg-surface/40 flex items-center justify-center">

@@ -21,3 +21,8 @@ export async function apiSongs(ids: string[]) {
   if (!r.ok) throw new Error("songs failed");
   return r.json();
 }
+export async function apiArtist(name: string) {
+  const r = await fetch(`/api/artist?name=${encodeURIComponent(name)}`);
+  if (!r.ok) throw new Error("artist failed");
+  return r.json();
+}

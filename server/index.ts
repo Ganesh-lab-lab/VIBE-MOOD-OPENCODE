@@ -16,6 +16,7 @@ app.use(express.json());
 app.get("/api/search", searchHandler as any);
 app.get("/api/new", newReleasesHandler as any);
 app.get("/api/songs", songsHandler as any);
+app.get("/api/artist", artistHandler as any);
 app.get("/api/artist/:id", artistHandler as any);
 app.get("/api/play/:songId", playHandler as any);
 app.get("/api/stream", sseHandler as any);
