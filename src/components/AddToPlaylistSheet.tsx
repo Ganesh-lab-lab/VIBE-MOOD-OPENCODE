@@ -39,7 +39,7 @@ export default function AddToPlaylistSheet({ song, onClose }: { song: any; onClo
           {creating && (
             <div className="flex gap-2">
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Playlist name" className="flex-1 h-10 px-3 rounded-xl bg-surface/40" />
-              <button onClick={createNew} className="px-4 rounded-xl bg-primary text-white">Create</button>
+              <button onClick={createNew} className="px-4 rounded-xl bg-primary text-on-primary">Create</button>
             </div>
           )}
           <div className="space-y-1">

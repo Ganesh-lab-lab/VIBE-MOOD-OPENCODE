@@ -7,6 +7,7 @@ export default {
         bg: "var(--bg)",
         surface: "var(--surface)",
         primary: "var(--primary)",
+        "on-primary": "var(--on-primary)",
         "accent-new": "var(--accent-new)",
         secondary: "var(--secondary)",
         highlight: "var(--highlight)",

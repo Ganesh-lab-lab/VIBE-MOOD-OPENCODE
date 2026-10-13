@@ -39,7 +39,7 @@ export default function DesktopLayout() {
           <button aria-label="Notifications" className="w-10 h-10 rounded-full bg-surface/40 flex items-center justify-center">
             <Bell size={18} strokeWidth={1.75} />
           </button>
-          <button aria-label="Profile" onClick={() => navigate("/settings")} className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-display font-bold">
+          <button aria-label="Profile" onClick={() => navigate("/settings")} className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-display font-bold">
             {user?.name?.[0]?.toUpperCase() || "V"}
           </button>
         </div>
@@ -169,7 +169,7 @@ function PlayerBar({ player }: any) {
           <div className="flex items-center gap-3">
             <button aria-label="Shuffle" onClick={() => player.setShuffle(!player.shuffle)} className={"w-8 h-8 rounded-full flex items-center justify-center " + (player.shuffle ? "text-primary" : "text-muted")}><Shuffle size={16} strokeWidth={1.75} /></button>
             <button aria-label="Previous" onClick={player.prev} className="w-9 h-9 rounded-full bg-surface/40 flex items-center justify-center"><SkipBack size={18} strokeWidth={1.75} /></button>
-            <button aria-label="Play pause" onClick={player.toggle} className="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center">
+            <button aria-label="Play pause" onClick={player.toggle} className="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center">
               {player.isPlaying ? <Pause size={20} strokeWidth={1.75} fill="currentColor" /> : <Play size={20} strokeWidth={1.75} fill="currentColor" />}
             </button>
             <button aria-label="Next" onClick={player.next} className="w-9 h-9 rounded-full bg-surface/40 flex items-center justify-center"><SkipForward size={18} strokeWidth={1.75} /></button>

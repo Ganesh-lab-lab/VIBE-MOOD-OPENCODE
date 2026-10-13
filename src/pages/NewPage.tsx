@@ -30,9 +30,9 @@ export default function NewPage() {
     <div className="space-y-8">
       <h1 className="font-display text-4xl font-extrabold">New</h1>
       <div className="flex gap-2 overflow-x-auto">
-        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-white" : "bg-surface/50 text-muted")}>All</button>
+        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>All</button>
         {orderedLangs.map((c) => { const l = LANGUAGES.find(x=>x.code===c)!; return (
-          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-white" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
+          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
         );})}
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2">
@@ -45,7 +45,7 @@ export default function NewPage() {
                 <div className="font-display text-xl font-bold">{f.title}</div>
                 <div className="text-sm text-muted">{f.artist}</div>
               </div>
-              <button onClick={f.play} className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center"><Play size={18} strokeWidth={1.75} fill="currentColor" /></button>
+              <button onClick={f.play} className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center"><Play size={18} strokeWidth={1.75} fill="currentColor" /></button>
             </div>
           </div>
         ))}

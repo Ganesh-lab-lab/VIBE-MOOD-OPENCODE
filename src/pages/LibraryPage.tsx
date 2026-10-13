@@ -25,13 +25,13 @@ export default function LibraryPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-3xl font-bold">Your library</h1>
-        <button aria-label="Create playlist" onClick={() => setCreating(true)} className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-lg">
+        <button aria-label="Create playlist" onClick={() => setCreating(true)} className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg">
           <Plus size={20} strokeWidth={1.75} />
         </button>
       </div>
       <div className="flex gap-2 overflow-x-auto">
         {["Playlists","Artists","Albums","Downloaded"].map((c) => (
-          <button key={c} onClick={() => setFilter(c)} className={"px-4 py-1.5 rounded-full text-sm " + (filter === c ? "bg-primary text-white" : "bg-surface/50 text-muted")}>{c}</button>
+          <button key={c} onClick={() => setFilter(c)} className={"px-4 py-1.5 rounded-full text-sm " + (filter === c ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{c}</button>
         ))}
       </div>
 
@@ -39,7 +39,7 @@ export default function LibraryPage() {
         <div className="glass p-4">
           <div className="glass-inner flex gap-2">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Playlist name" className="flex-1 h-10 px-3 rounded-xl bg-surface/40" />
-            <button onClick={createPlaylist} className="px-4 rounded-xl bg-primary text-white">Create</button>
+            <button onClick={createPlaylist} className="px-4 rounded-xl bg-primary text-on-primary">Create</button>
             <button onClick={() => setCreating(false)} className="px-4 rounded-xl bg-surface/40">Cancel</button>
           </div>
           {!name.trim() && <p className="text-xs text-secondary mt-2">Name cannot be empty.</p>}

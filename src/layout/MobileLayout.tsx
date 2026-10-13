@@ -39,7 +39,7 @@ export default function MobileLayout() {
           </div>
           <div className="flex items-center gap-4">
             <button onClick={player.prev} className="w-11 h-11 rounded-full glass flex items-center justify-center">⏮</button>
-            <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
+            <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
             <button onClick={player.next} className="w-11 h-11 rounded-full glass flex items-center justify-center">⏭</button>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function MobileLayout() {
               <div className="text-sm font-semibold truncate">{s.title}</div>
               <div className="text-xs text-muted truncate">{findArtist(s.artistId)?.name}</div>
             </div>
-            <button onClick={(e) => { e.stopPropagation(); player.toggle(); }} aria-label="Play pause" className="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
+            <button onClick={(e) => { e.stopPropagation(); player.toggle(); }} aria-label="Play pause" className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center">{player.isPlaying ? "⏸" : "▶"}</button>
             <button onClick={(e) => { e.stopPropagation(); likes.toggle(s.id); }} aria-label="Like" className="w-9 h-9 rounded-full bg-surface/40 flex items-center justify-center">
               <Heart size={16} strokeWidth={1.75} fill={likes.isLiked(s.id) ? "var(--secondary)" : "none"} color={likes.isLiked(s.id) ? "var(--secondary)" : "currentColor"} />
             </button>

@@ -31,7 +31,7 @@ export default function NowPlayingPage() {
       <div className="flex justify-between w-full max-w-md text-xs text-muted"><span>{fmt(player.currentTime)}</span><span>{fmt(player.duration)}</span></div>
       <div className="flex items-center gap-4">
         <button onClick={player.prev} className="w-11 h-11 rounded-full glass flex items-center justify-center"><SkipBack size={20} strokeWidth={1.75} /></button>
-        <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center">
+        <button onClick={player.toggle} className="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center">
           {player.isPlaying ? <Pause size={22} strokeWidth={1.75} fill="currentColor" /> : <Play size={22} strokeWidth={1.75} fill="currentColor" />}
         </button>
         <button onClick={player.next} className="w-11 h-11 rounded-full glass flex items-center justify-center"><SkipForward size={20} strokeWidth={1.75} /></button>

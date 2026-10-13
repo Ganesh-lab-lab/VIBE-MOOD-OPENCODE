@@ -54,7 +54,7 @@ export default function SettingsPage() {
       <div className="glass p-6">
         <div className="glass-inner space-y-3">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-display font-bold text-2xl">{user?.name?.[0]?.toUpperCase() || "V"}</div>
+            <div className="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center font-display font-bold text-2xl">{user?.name?.[0]?.toUpperCase() || "V"}</div>
             <div className="flex-1">
               <div className="text-xs text-muted">Name</div>
               <input value={name} onChange={(e) => setNameLocal(e.target.value)} onBlur={saveName} className="w-full mt-1 h-10 px-3 rounded-xl bg-surface/40" />
@@ -69,7 +69,7 @@ export default function SettingsPage() {
           <h2 className="font-display text-xl font-bold">Languages</h2>
           <div className="flex flex-wrap gap-2">
             {LANGUAGES.map((l) => (
-              <button key={l.code} onClick={() => toggleLang(l.code)} className={"px-3 py-1.5 rounded-full text-xs " + (langs.includes(l.code) ? "bg-primary text-white" : "bg-surface/50 text-muted")}>
+              <button key={l.code} onClick={() => toggleLang(l.code)} className={"px-3 py-1.5 rounded-full text-xs " + (langs.includes(l.code) ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>
                 {l.nativeName} <span className="opacity-70">({l.name})</span>
               </button>
             ))}
@@ -98,7 +98,7 @@ export default function SettingsPage() {
           <h2 className="font-display text-xl font-bold">Audio quality</h2>
           <div className="flex gap-2">
             {["Low","Normal","High","Lossless"].map((q) => (
-              <button key={q} onClick={() => setQuality(q)} className={"px-4 py-1.5 rounded-full text-sm " + (quality === q ? "bg-primary text-white" : "bg-surface/50 text-muted")}>{q}</button>
+              <button key={q} onClick={() => setQuality(q)} className={"px-4 py-1.5 rounded-full text-sm " + (quality === q ? "bg-primary text-on-primary" : "bg-surface/50 text-muted")}>{q}</button>
             ))}
           </div>
         </div>

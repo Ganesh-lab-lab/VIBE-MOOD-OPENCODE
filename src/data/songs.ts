@@ -13,14 +13,14 @@ export interface Song {
 }
 
 export const songs: Song[] = [
-  { id: "s1", title: "Midnight Carousel", artistId: "a1", album: "Velvet Hours", duration: 214, coverColors: ["#7B2FF7", "#3DE8D0"], vibeTags: ["chill","romantic"], isNew: true, plays: 9400000 },
-  { id: "s2", title: "Sunset Convoy", artistId: "a2", album: "Coastline", duration: 188, coverColors: ["#FF5E6C","#FFC93C"], vibeTags: ["party","roadtrip"], isNew: false, plays: 7200000 },
-  { id: "s3", title: "Quiet Mornings", artistId: "a3", album: "Paper Boats", duration: 201, coverColors: ["#2FAE5F","#A8E6B8"], vibeTags: ["chill","focus"], isNew: false, plays: 3400000 },
-  { id: "s4", title: "Glass Towers", artistId: "a4", album: "Mirage", duration: 245, coverColors: ["#4FC3F7","#7B2FF7"], vibeTags: ["focus","sad"], isNew: true, plays: 11200000 },
-  { id: "s5", title: "Warm Static", artistId: "a5", album: "Lo-Fi Letters", duration: 167, coverColors: ["#F26A0C","#FFD9B3"], vibeTags: ["chill","focus"], isNew: false, plays: 2900000 },
+  { id: "s1", title: "Midnight Carousel", artistId: "a1", album: "Velvet Hours", duration: 214, coverColors: ["#FF6B4A", "#5AA9FF"], vibeTags: ["chill","romantic"], isNew: true, plays: 9400000 },
+  { id: "s2", title: "Sunset Convoy", artistId: "a2", album: "Coastline", duration: 188, coverColors: ["#F5B83D","#FF9F1C"], vibeTags: ["party","roadtrip"], isNew: false, plays: 7200000 },
+  { id: "s3", title: "Quiet Mornings", artistId: "a3", album: "Paper Boats", duration: 201, coverColors: ["#2FAE5F","#C9F0A8"], vibeTags: ["chill","focus"], isNew: false, plays: 3400000 },
+  { id: "s4", title: "Glass Towers", artistId: "a4", album: "Mirage", duration: 245, coverColors: ["#4FC3F7","#FF6B4A"], vibeTags: ["focus","sad"], isNew: true, plays: 11200000 },
+  { id: "s5", title: "Warm Static", artistId: "a5", album: "Lo-Fi Letters", duration: 167, coverColors: ["#F26A0C","#FFD6A8"], vibeTags: ["chill","focus"], isNew: false, plays: 2900000 },
   { id: "s6", title: "Neon Heartbeat", artistId: "a6", album: "Afterglow", duration: 198, coverColors: ["#E8567A","#FF8FA3"], vibeTags: ["party","workout"], isNew: true, plays: 5800000 },
-  { id: "s7", title: "Dust and Stars", artistId: "a7", album: "Horizon Line", duration: 233, coverColors: ["#3DE8D0","#0A2A2B"], vibeTags: ["sad","roadtrip"], isNew: false, plays: 1900000 },
-  { id: "s8", title: "Frequency", artistId: "a8", album: "Resonance", duration: 209, coverColors: ["#C6FF3D","#7B2FF7"], vibeTags: ["workout","party"], isNew: false, plays: 8300000 },
+  { id: "s7", title: "Dust and Stars", artistId: "a7", album: "Horizon Line", duration: 233, coverColors: ["#5AA9FF","#0A2A2B"], vibeTags: ["sad","roadtrip"], isNew: false, plays: 1900000 },
+  { id: "s8", title: "Frequency", artistId: "a8", album: "Resonance", duration: 209, coverColors: ["#7CF5C8","#FF6B4A"], vibeTags: ["workout","party"], isNew: false, plays: 8300000 },
   { id: "s9", title: "Lavender Rain", artistId: "a1", album: "Velvet Hours", duration: 192, coverColors: ["#9B59F6","#5FE0D0"], vibeTags: ["sad","chill"], isNew: false, plays: 6100000 },
   { id: "s10", title: "Barefoot Summer", artistId: "a2", album: "Coastline", duration: 176, coverColors: ["#FF7A5C","#FFD666"], vibeTags: ["party","roadtrip"], isNew: true, plays: 4500000 },
   { id: "s11", title: "Paper Cranes", artistId: "a3", album: "Paper Boats", duration: 210, coverColors: ["#3CC46A","#C6F0D2"], vibeTags: ["focus","sad"], isNew: false, plays: 2200000 },

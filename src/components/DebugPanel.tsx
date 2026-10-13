@@ -19,7 +19,7 @@ export default function DebugPanel() {
         />
         <div className="flex items-center justify-between text-sm">
           <span>Hour: {t.forcedHour ?? "auto"}</span>
-          <button className="px-2 py-1 rounded bg-primary text-white text-xs" onClick={() => t.setForcedHour(null)}>Auto time</button>
+          <button className="px-2 py-1 rounded bg-primary text-on-primary text-xs" onClick={() => t.setForcedHour(null)}>Auto time</button>
         </div>
         <div className="text-xs text-muted">Bucket: {t.bucket}</div>
       </div>

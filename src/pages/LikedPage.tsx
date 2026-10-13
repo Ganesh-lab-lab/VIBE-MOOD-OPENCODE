@@ -27,7 +27,7 @@ export default function LikedPage() {
           <h1 className="font-display text-4xl font-extrabold">Liked songs</h1>
           <div className="text-muted text-sm mt-1">{likedSongs.length} songs</div>
           <div className="flex gap-2 mt-3">
-            <button onClick={playAll} className="px-4 h-9 rounded-full bg-primary text-white flex items-center gap-2"><Play size={14} strokeWidth={1.75} fill="currentColor" /> Play</button>
+            <button onClick={playAll} className="px-4 h-9 rounded-full bg-primary text-on-primary flex items-center gap-2"><Play size={14} strokeWidth={1.75} fill="currentColor" /> Play</button>
             <button onClick={shuffle} className="px-4 h-9 rounded-full bg-surface/50 flex items-center gap-2"><Shuffle size={14} strokeWidth={1.75} /> Shuffle</button>
           </div>
         </div>
