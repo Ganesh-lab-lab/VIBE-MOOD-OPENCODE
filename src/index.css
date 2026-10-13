@@ -86,6 +86,7 @@ html {
 
 body {
   margin: 0;
+  line-height: 1.5;
   font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);

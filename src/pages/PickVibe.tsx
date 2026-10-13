@@ -1,48 +1,42 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import { artists } from "../data/artists";
-import { Logo } from "../components/Logo";
-
-const GENRES = ["Pop","Electronic","Indie","Acoustic","Hip-Hop","Jazz","Rock","Lo-Fi","Ambient","R&B","Folk","Synthwave"];
+import { LANGUAGES } from "../lib/languages";
 
 export function PickVibe() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { setLanguages } = useAuth();
   const [picked, setPicked] = useState<string[]>([]);
-  const toggle = (id: string) => {
-    setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : (p.length >= 8 ? p : [...p, id])));
+  const toggle = (code: string) => {
+    setPicked((p) => (p.includes(code) ? p.filter((x) => x !== code) : [...p, code]));
   };
-  const bubbles = [...GENRES.map((g) => ({ id: "g:" + g, label: g })), ...artists.map((a) => ({ id: "a:" + a.id, label: a.name }))];
+  const save = () => {
+    const langs = picked.length ? picked : ["en"];
+    setLanguages(langs);
+    localStorage.setItem("vibemood_languages", JSON.stringify(langs));
+    navigate("/welcome");
+  };
   return (
     <div className="min-h-screen flex flex-col items-center p-6 gap-6">
-      <div className="mt-8 text-center">
-        <Logo size={40} showWordmark />
-        <h1 className="font-display text-3xl font-bold mt-4">Pick your vibe</h1>
-        <p className="text-muted mt-1">Choose at least 3 genres or artists you love.</p>
-      </div>
-      <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
-        {bubbles.map((b) => {
-          const active = picked.includes(b.id);
+      <h1 className="font-display text-3xl font-bold mt-8">Pick your languages</h1>
+      <p className="text-muted">Choose one or more. Order of selection becomes priority.</p>
+      <div className="flex flex-wrap justify-center gap-4 max-w-3xl">
+        {LANGUAGES.map((l) => {
+          const active = picked.includes(l.code);
+          const order = picked.indexOf(l.code) + 1;
           return (
-            <button
-              key={b.id}
-              onClick={() => toggle(b.id)}
-              className={"px-4 py-2 rounded-full glass transition-transform " + (active ? "scale-105" : "")}
-              style={{ borderColor: active ? "var(--primary)" : undefined }}
-              aria-pressed={active}
-            >
-              <span className="glass-inner font-medium text-sm">{b.label}</span>
+            <button key={l.code} onClick={() => toggle(l.code)} className={"glass p-5 rounded-3xl text-center min-w-[120px] transition-transform " + (active ? "scale-105" : "")} style={{ borderColor: active ? "var(--primary)" : undefined }}>
+              <div className="glass-inner">
+                <div className="font-display text-2xl font-bold" style={{ color: `var(${l.colorVar})` }}>{l.nativeName}</div>
+                <div className="text-xs text-muted mt-1">{l.name}</div>
+                <div className="text-[10px] text-muted">{l.industryLabel}</div>
+                {active && <div className="mt-1 text-xs text-primary">#{order}</div>}
+              </div>
             </button>
           );
         })}
       </div>
-      <div className="text-sm text-muted">{picked.length} chosen</div>
-      <button
-        disabled={picked.length < 3}
-        onClick={() => navigate("/welcome")}
-        className="px-8 h-11 rounded-full bg-primary text-white font-semibold disabled:opacity-40"
-      >
+      <button disabled={picked.length === 0} onClick={save} className="px-8 h-11 rounded-full bg-primary text-white font-semibold disabled:opacity-40">
         Continue
       </button>
     </div>

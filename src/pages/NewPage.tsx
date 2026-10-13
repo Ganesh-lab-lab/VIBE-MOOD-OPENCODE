@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { apiNew } from "../lib/api";
 import { Play } from "lucide-react";
 import { usePlayer } from "../context/PlayerContext";
+import { useAuth } from "../context/AuthContext";
+import { LANGUAGES } from "../lib/languages";
 import { songs } from "../data/songs";
 import { artists } from "../data/artists";
 
@@ -12,7 +15,12 @@ import { fmt } from "../lib/format";
 export default function NewPage() {
   const player = usePlayer();
   const navigate = useNavigate();
-  const newSongs = songs.filter((s) => s.isNew);
+  const { user } = useAuth();
+  const userLangs = user?.languages || ["en"];
+  const orderedLangs = [...userLangs, ...LANGUAGES.map(l=>l.code).filter(c=>!userLangs.includes(c))];
+  const [lang, setLang] = useState("");
+  const [newSongs, setNewSongs] = useState(songs.filter((s) => s.isNew));
+  useEffect(() => { apiNew(lang || undefined).then((r) => { if (r?.songs?.length) setNewSongs(r.songs); }).catch(()=>{}); }, [lang]);
   const featured = [
     { label: "NEW ALBUM", title: "Velvet Hours", artist: "Nova Lune", colors: ["var(--primary)","var(--highlight)"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s1")!, songs) },
     { label: "UPDATED PLAYLIST", title: "Road Trip Radio", artist: "Vibemood", colors: ["var(--accent-new)","var(--primary)"] as [string,string], play: () => player.play(songs.find(s=>s.id==="s2")!, songs) },
@@ -21,6 +29,12 @@ export default function NewPage() {
   return (
     <div className="space-y-8">
       <h1 className="font-display text-4xl font-extrabold">New</h1>
+      <div className="flex gap-2 overflow-x-auto">
+        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-white" : "bg-surface/50 text-muted")}>All</button>
+        {orderedLangs.map((c) => { const l = LANGUAGES.find(x=>x.code===c)!; return (
+          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-white" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
+        );})}
+      </div>
       <div className="flex gap-4 overflow-x-auto pb-2">
         {featured.map((f, i) => (
           <div key={i} className="glass min-w-[260px] p-4 hover:scale-[1.02] transition-transform">

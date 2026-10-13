@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { Logo } from "../components/Logo";
+import { LANGUAGES } from "../lib/languages";
 
 const VIBE_OPTIONS = [
   { id: "auto", label: "Auto" },
@@ -21,12 +22,15 @@ const VIBE_OPTIONS = [
 
 export default function SettingsPage() {
   const navigate = useNavigate();
-  const { user, setName, logout } = useAuth();
+  const { user, setName, logout, setLanguages } = useAuth();
   const theme = useTheme();
   const [name, setNameLocal] = useState(user?.name || "");
+  const [langs, setLangs] = useState<string[]>(user?.languages || ["en"]);
+  const toggleLang = (code: string) => setLangs((p) => (p.includes(code) ? p.filter((c) => c !== code) : [...p, code]));
   const [quality, setQuality] = useState("High");
   const [notif, setNotif] = useState(true);
   const [emailNotif, setEmailNotif] = useState(false);
+  useEffect(() => { if (langs.length) setLanguages(langs); }, [langs]);
 
   const saveName = () => { if (name.trim()) setName(name.trim()); };
 
@@ -56,6 +60,19 @@ export default function SettingsPage() {
               <input value={name} onChange={(e) => setNameLocal(e.target.value)} onBlur={saveName} className="w-full mt-1 h-10 px-3 rounded-xl bg-surface/40" />
               <div className="text-xs text-muted mt-1">{user?.email}</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="glass p-6">
+        <div className="glass-inner space-y-3">
+          <h2 className="font-display text-xl font-bold">Languages</h2>
+          <div className="flex flex-wrap gap-2">
+            {LANGUAGES.map((l) => (
+              <button key={l.code} onClick={() => toggleLang(l.code)} className={"px-3 py-1.5 rounded-full text-xs " + (langs.includes(l.code) ? "bg-primary text-white" : "bg-surface/50 text-muted")}>
+                {l.nativeName} <span className="opacity-70">({l.name})</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -98,6 +115,14 @@ export default function SettingsPage() {
             <span>Email updates</span>
             <input type="checkbox" checked={emailNotif} onChange={(e) => setEmailNotif(e.target.checked)} />
           </label>
+        </div>
+      </div>
+
+      <div className="glass p-6">
+        <div className="glass-inner space-y-2 text-xs text-muted">
+          <h2 className="font-display text-xl font-bold text-text">About</h2>
+          <p>Data: iTunes Search API (Apple) and Deezer. Full-song playback via official YouTube IFrame Player API. Channel RSS feeds for new releases.</p>
+          <p>No audio downloaded or proxied. All previews from metadata APIs.</p>
         </div>
       </div>
 

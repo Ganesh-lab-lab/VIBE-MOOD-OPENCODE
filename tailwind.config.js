@@ -14,8 +14,8 @@ export default {
         muted: "var(--muted)",
       },
       fontFamily: {
-        display: ['"Bricolage Grotesque"', "ui-sans-serif", "system-ui", "sans-serif"],
-        body: ['"DM Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ['"Bricolage Grotesque"', '"Noto Sans Devanagari"', '"Noto Sans Telugu"', '"Noto Sans Tamil"', '"Noto Sans Malayalam"', '"Noto Sans Kannada"', "ui-sans-serif", "system-ui", "sans-serif"],
+        body: ['"DM Sans"', '"Noto Sans Devanagari"', '"Noto Sans Telugu"', '"Noto Sans Tamil"', '"Noto Sans Malayalam"', '"Noto Sans Kannada"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       borderRadius: {
         glass: "24px",

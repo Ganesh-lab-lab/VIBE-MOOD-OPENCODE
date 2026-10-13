@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Play, Heart } from "lucide-react";
 import { useLikes } from "../context/LikesContext";
@@ -7,8 +7,11 @@ import RowMenu from "../components/RowMenu";
 import { useTheme } from "../context/ThemeContext";
 import { usePlayer } from "../context/PlayerContext";
 import { useAuth } from "../context/AuthContext";
+import { greetings } from "../lib/languages";
 import { songs, artistById } from "../data/songs";
 import { artists } from "../data/artists";
+import { LANGUAGES, langByCode } from "../lib/languages";
+import { apiNew } from "../lib/api";
 import Cover from "../components/Cover";
 
 function greeting(h: number) {
@@ -28,6 +31,32 @@ export default function Home() {
   const player = usePlayer();
   const navigate = useNavigate();
   const [chip, setChip] = useState("All");
+  const [lang, setLang] = useState("");
+  const [releaseSongs, setReleaseSongs] = useState<any[]>(() => songs.filter((s) => s.isNew));
+  const [toast, setToast] = useState("");
+  const userLangs = (useAuth().user as any)?.languages || ["en"];
+  const orderedLangs = [...userLangs, ...LANGUAGES.map(l=>l.code).filter(c=>!userLangs.includes(c))];
+
+  useEffect(() => {
+    apiNew(lang || undefined).then((r) => { if (r?.songs?.length) setReleaseSongs(r.songs); else setReleaseSongs([]); }).catch(() => {});
+    let es: EventSource | null = null;
+    try {
+      es = new EventSource("/api/stream");
+      es.addEventListener("new-releases", (ev: any) => {
+        try {
+          const d = JSON.parse(ev.data);
+          if (d.count > 0) {
+            const first = d.langs?.[0];
+            const name = first ? langByCode(first.code)?.name : "";
+            setToast(`${d.count} new ${name || ""} songs dropped`.trim());
+            setTimeout(() => setToast(""), 4000);
+            apiNew(lang || undefined).then((r) => { if (r?.songs?.length) setReleaseSongs(r.songs); }).catch(() => {});
+          }
+        } catch {}
+      });
+    } catch {}
+    return () => { es?.close(); };
+  }, [lang]);
 
   const vibe = mode === "auto" ? null : mode;
   const filteredSongs = useMemo(() => songs.filter(vibeFilter(vibe)), [vibe]);
@@ -42,6 +71,16 @@ export default function Home() {
       <div>
         <div className="text-muted text-lg">{greeting(effectiveHour)}</div>
         <h1 className="font-display text-5xl font-extrabold tracking-tight">{user?.name || "there"}</h1>
+        {user?.languages?.[0] && greetings[user.languages[0]] && <div className="text-sm text-muted mt-1">{greetings[user.languages[0]]}</div>}
+      </div>
+
+      {toast && <div className="fixed top-4 right-4 z-50 glass px-4 py-2 text-sm text-primary">{toast}</div>}
+
+      <div className="flex gap-2 overflow-x-auto">
+        <button onClick={() => setLang("")} className={"px-3 py-1.5 rounded-full text-xs " + (!lang ? "bg-primary text-white" : "bg-surface/50 text-muted")}>All</button>
+        {orderedLangs.map((c) => { const l = LANGUAGES.find(x=>x.code===c)!; return (
+          <button key={c} onClick={() => setLang(c)} className={"px-3 py-1.5 rounded-full text-xs " + (lang===c ? "bg-primary text-white" : "bg-surface/50 text-muted")}>{l.nativeName}</button>
+        );})}
       </div>
 
       <div className="flex gap-2">
@@ -79,8 +118,8 @@ export default function Home() {
 
       <Section title="Release pulse">
         <div className="flex gap-6 overflow-x-auto pb-2">
-          {newSongs.map((s) => (
-            <button key={s.id} onClick={() => player.play(s, songs)} className="flex flex-col items-center gap-2 min-w-[90px]">
+          {releaseSongs.map((s) => (
+            <button key={s.id} onClick={() => player.play(s, releaseSongs)} className="flex flex-col items-center gap-2 min-w-[90px]">
               <div className="relative">
                 <div className="ring-pulse absolute inset-0 rounded-full" style={{ background: "var(--accent-new)", opacity: 0.5 }} />
                 <Cover song={s} size={84} />
@@ -158,6 +197,7 @@ function SongRow({ index, song, onPlay }: any) {
       <div className="flex-1 min-w-0">
         <div className="text-sm font-semibold truncate">{song.title} {song.isNew && <span className="inline-block w-2 h-2 rounded-full bg-accent-new ml-1 align-middle" />}</div>
         <button onClick={() => navigate("/artist/" + song.artistId)} className="text-xs text-muted truncate hover:underline">{artist?.name}</button>
+        {song.filmName && <div className="text-[10px] text-muted truncate">{song.filmName}{song.musicDirector ? ` • ${song.musicDirector}` : ""}</div>}
       </div>
       <span className="text-xs text-muted">{fmt(song.duration)}</span>
       <RowMenu song={song} />

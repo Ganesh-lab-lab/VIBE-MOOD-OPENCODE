@@ -21,3 +21,8 @@ Press Ctrl+Shift+D to open debug panel with hour slider.
 - New-release feeds: replace static `isNew` flags / New page data with fetches from YouTube channel RSS (or your backend). Update `src/data/songs.ts` loader.
 - Player: plug YouTube IFrame Player API into the adapter point in `src/context/PlayerContext.tsx` (see `adapter` ref). Swap simulated timer for iframe events.
 - Lyrics: replace placeholder timed lyrics in `src/data/lyrics.ts` with licensed lyrics API (register adapter in `src/components/LyricsFull.tsx`).
+## Languages and Indian music
+- Languages config in src/lib/languages.ts.
+- Server detection server/lang.ts.
+- channels.json entries {name,channelId,language,type}.
+- Audio only via YouTube IFrame + metadata previews.
