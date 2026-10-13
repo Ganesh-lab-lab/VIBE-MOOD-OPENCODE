@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router";
-import { Home, Search as SearchIcon, Library as LibIcon, Zap, X, Heart } from "lucide-react";
+import { Home, Search as SearchIcon, Library as LibIcon, Zap, X, Heart, Share2 as Share } from "lucide-react";
 import { usePlayer } from "../context/PlayerContext";
 import { useLikes } from "../context/LikesContext";
 import { artists } from "../data/artists";
@@ -20,10 +20,14 @@ export default function MobileLayout() {
 
   if (expanded && s) {
     return (
-      <div className="fixed inset-0 z-40 overflow-y-auto p-6" style={{ background: "var(--bg)" }}>
-        <button aria-label="Close" onClick={() => setExpanded(false)} className="mb-4 w-10 h-10 rounded-full glass flex items-center justify-center"><X size={18} strokeWidth={1.75} /></button>
+      <div className="fixed inset-0 z-40 overflow-y-auto p-6" style={{ background: "linear-gradient(180deg,var(--bg),var(--bg-mid))" }}>
+        <div className="flex items-center justify-between mb-2">
+          <button aria-label="Back" onClick={() => setExpanded(false)} className="w-10 h-10 rounded-full glass flex items-center justify-center"><X size={18} strokeWidth={1.75} /></button>
+          <div className="font-medium text-sm">{findArtist(s.artistId)?.name}</div>
+          <button aria-label="Share" className="w-10 h-10 rounded-full glass flex items-center justify-center"><Share size={18} strokeWidth={1.75} /></button>
+        </div>
         <div className="flex flex-col items-center gap-4">
-          <Cover song={s} size={240} spin={false} />
+          <Cover song={s} size={260} square />
           <div className="text-center">
             <div className="font-display text-2xl font-bold">{s.title}</div>
             <button className="text-muted" onClick={() => navigate("/artist/" + s.artistId)}>{findArtist(s.artistId)?.name}</button>
