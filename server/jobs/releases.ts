@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import db from "../db.js";
 import { broadcast } from "../sse.js";
+import { itunesSearchMulti } from "../itunes.js";
+import { detectLanguage } from "../lang.js";
 async function safe<T>(fn: () => Promise<T>): Promise<T | null> {
   try { return await fn(); } catch (e) { console.warn("source failed", e); return null; }
 }
@@ -15,16 +17,17 @@ function markSeen(sourceId: string) {
 }
 
 function upsertSong(s: any) {
+  const lang = s.language || detectLanguage({ title: s.title }) || null;
   db.prepare(`
-    INSERT INTO songs (id, title, artist, album, durationSec, coverUrl, previewUrl, youtubeId, releasedAt, isNew, source, vibeTags)
-    VALUES (@id, @title, @artist, @album, @durationSec, @coverUrl, @previewUrl, @youtubeId, @releasedAt, 1, @source, @vibeTags)
-    ON CONFLICT(id) DO UPDATE SET title=excluded.title, artist=excluded.artist, coverUrl=excluded.coverUrl, releasedAt=excluded.releasedAt
+    INSERT INTO songs (id, title, artist, album, durationSec, coverUrl, previewUrl, youtubeId, releasedAt, isNew, source, vibeTags, language)
+    VALUES (@id, @title, @artist, @album, @durationSec, @coverUrl, @previewUrl, @youtubeId, @releasedAt, 1, @source, @vibeTags, @language)
+    ON CONFLICT(id) DO UPDATE SET title=excluded.title, artist=excluded.artist, coverUrl=excluded.coverUrl, releasedAt=excluded.releasedAt, language=COALESCE(songs.language, excluded.language)
   `).run({
     id: s.id, title: s.title, artist: s.artist, album: s.album || null,
     durationSec: s.durationSec || null, coverUrl: s.coverUrl || null,
     previewUrl: s.previewUrl || null, youtubeId: s.youtubeId || null,
     releasedAt: s.releasedAt || null, source: s.source || null,
-    vibeTags: JSON.stringify([]),
+    vibeTags: JSON.stringify([]), language: lang,
   });
   const aId = "art_" + (s.artist || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
   db.prepare("INSERT OR IGNORE INTO artists(id,name) VALUES(?,?)").run(aId, s.artist);
@@ -110,6 +113,15 @@ export async function runReleaseJob() {
   db.prepare("UPDATE songs SET isNew=0 WHERE releasedAt < ? AND isNew=1").run(cutoff48);
 
   const collected: any[] = [];
+  const langQueries = [{code:"te",q:"new telugu songs"},{code:"hi",q:"new hindi songs"},{code:"ta",q:"new tamil songs"},{code:"ml",q:"new malayalam songs"},{code:"kn",q:"new kannada songs"},{code:"en",q:"new english songs"}];
+  for (const l of langQueries) {
+    const res = await safe(async () => {
+      const r = await itunesSearchMulti(l.q, 20);
+      const cutoff = Date.now() - 365*24*3600*1000;
+      return r.filter((s:any)=> !s.releasedAt || new Date(s.releasedAt).getTime() >= cutoff).map((s:any)=>({...s,language:l.code}));
+    });
+    if (res) collected.push(...res);
+  }
   const yt = await safe(youtubeRss);
   if (yt) collected.push(...yt);
   const dz = await safe(deezerFeed);
